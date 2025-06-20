@@ -1,0 +1,28 @@
+[project]
+name = "ai-automatizacion-cotizaciones-sincro"
+version = "0.1.0"
+description = "Automatiza la generación de cotizaciones a partir de información histórica y plantillas estandarizadas, mejorando la eficiencia y precisión en las propuestas comerciales."
+authors = [{ name = "Laren Osorio Toribio", email = "losorio@rcp.pe" }]
+requires-python = ">=3.12"
+readme = "README.md"
+
+dependencies = [
+    "transformers",
+    "accelerate",
+    "torchvision",
+    "PyMuPDF",
+    "pdfplumber",
+    "pytesseract",
+    "pdf2image",
+    "pandas",
+    "numpy",
+    "openpyxl",
+    "Pillow",
+    "python-docx",
+    "python-pptx",
+    "bs4",
+    "ipykernel"
+]
+
+[tool.uv]
+managed = true

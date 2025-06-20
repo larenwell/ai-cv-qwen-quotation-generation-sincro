@@ -1,0 +1,68 @@
+# Entorno virtual
+.venv/
+
+# Archivos de Python compilados
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Archivos generados en distribución y packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+
+# Archivos de PyInstaller
+*.manifest
+*.spec
+
+# Logs e informes
+logs/
+*.log
+
+# Reportes de test y cobertura
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# Archivos de entorno (variables sensibles)
+.env
+
+# IDEs y editores
+.vscode/
+.idea/
+
+# Archivos del sistema operativo
+.DS_Store
+Thumbs.db
+
+# Archivos de configuración sensibles
+conf/local/gdrive.json
+conf/local/bbdd.yml
+
+#data
+/data
+
+#Proyecto deprecated
+/deprecated
