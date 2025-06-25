@@ -10,6 +10,15 @@ html_content = html_path.read_text(encoding="utf-8")
 # Use the static method directly
 sections = QwenExtractor.extract_sections_from_html(html_content)
 
-print("OBJETIVOS:\n", sections['objetivos'])
-print("\nALCANCES:\n", sections['alcances'])
-print("\nENTREGABLES:\n", sections['entregables'])
+# Test all sections
+all_sections = [
+    'objetivos', 'alcances', 'entregables', 'introduccion', 'antecedentes',
+    'requerimiento_informacion', 'documentacion_requerida', 'condiciones_generales',
+    'exclusiones', 'honorarios', 'plazos', 'confidencialidad',
+    'certificaciones_acreditaciones', 'normatividad_aplicable', 'area_involucrada',
+    'recursos_esfuerzos', 'no_solicitacion'
+]
+
+for section in all_sections:
+    print(f"\n{section.upper()}:\n{sections.get(section, 'NOT FOUND')}")
+    print("-" * 50)

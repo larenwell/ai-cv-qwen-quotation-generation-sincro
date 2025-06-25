@@ -223,9 +223,8 @@ class QwenExtractor:
     @staticmethod
     def extract_sections_from_html(html: str) -> dict:
         """
-        Extract 'objetivos', 'alcances', 'entregables' from consolidated HTML using BeautifulSoup.
+        Extract all sections from consolidated HTML using BeautifulSoup.
         Handles typos, multiple pages, and collects all content between main section headings.
-        For ENTREGABLES, stops at the next numbered section (e.g., "6. CONSIDERACIONES GENERALES").
         Cleans HTML tags and removes footer information.
         """
         def normalize(text):
@@ -294,11 +293,27 @@ class QwenExtractor:
             text = re.sub(r'•\s*', '• ', text)
             return text.strip()
 
+        # Define all sections with their possible variations and typos
         section_variants = {
             'objetivos': [r'objeti[vo]{1,2}s?'],
             'alcances': [r'alcance[s]?', r'alcanz[es]{1,2}'],
             'entregables': [r'entregable[s]?'],
+            'introduccion': [r'introducci[oó]n'],
+            'antecedentes': [r'antecedente[s]?'],
+            'requerimiento_informacion': [r'requerimiento[s]?\s+de\s+informaci[oó]n'],
+            'documentacion_requerida': [r'documentaci[oó]n\s+requerida'],
+            'condiciones_generales': [r'condiciones\s+generales', r'consideraciones\s+generales'],
+            'exclusiones': [r'exclusiones?\s+generales?', r'exclusiones?'],
+            'honorarios': [r'honorarios?'],
+            'plazos': [r'plazos?'],
+            'confidencialidad': [r'confidencialidad'],
+            'certificaciones_acreditaciones': [r'certificaciones?\s+y?\s*acreditaciones?'],
+            'normatividad_aplicable': [r'normatividad\s+aplicable'],
+            'area_involucrada': [r'[aá]rea\s+involucrada'],
+            'recursos_esfuerzos': [r'recursos?\s+y?\s*esfuerzos?'],
+            'no_solicitacion': [r'no\s*solicitaci[oó]n']
         }
+        
         patterns = {k: re.compile('|'.join(v), re.IGNORECASE) for k, v in section_variants.items()}
         main_section_keys = list(patterns.keys())
 
@@ -314,8 +329,9 @@ class QwenExtractor:
         for tag in tags:
             if tag.name in ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']:
                 norm_text = normalize(tag.get_text())
-                # For ENTREGABLES section, check if we hit a numbered section
-                if current_section == 'entregables' and is_numbered_section(tag.get_text()):
+                
+                # Check if we hit a numbered section (for sections that should stop at numbered sections)
+                if current_section in ['entregables', 'condiciones_generales', 'exclusiones', 'honorarios', 'plazos'] and is_numbered_section(tag.get_text()):
                     current_section = None
                     continue
                 
