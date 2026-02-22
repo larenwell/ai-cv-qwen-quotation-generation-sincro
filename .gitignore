@@ -67,5 +67,5 @@ conf/local/bbdd.yml
 #Proyecto deprecated
 /deprecated
 
-#Dependencies
+#uv.lock
 uv.lock
